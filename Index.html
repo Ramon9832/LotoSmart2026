@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>LotoSmart 2026 - Pronósticos Lotofácil</title>
+    <style>
+        body { font-family: sans-serif; background: #f0f2f5; text-align: center; padding: 20px; }
+        .container { max-width: 600px; margin: auto; background: white; padding: 20px; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h1 { color: #2c3e50; }
+        .ticket { background: #e8f5e9; border: 2px solid #4caf50; border-radius: 10px; padding: 10px; margin: 10px 0; font-size: 1.2rem; font-weight: bold; color: #2e7d32; }
+        button { background: #4caf50; color: white; border: none; padding: 15px 30px; border-radius: 5px; cursor: pointer; font-size: 1rem; }
+        button:hover { background: #45a049; }
+        .info { font-size: 0.8rem; color: #666; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 LotoSmart 2026</h1>
+        <p>Algoritmo de Optimización para Lotofácil</p>
+        <button onclick="generarPronosticos()">Generar 5 Pronósticos de Hoy</button>
+        <div id="resultados"></div>
+        <p class="info">Basado en patrones 8:7, números primos y distribución de suma (166-220).</p>
+    </div>
+
+    <script>
+        const PRIMOS = [2, 3, 5, 7, 11, 13, 17, 19, 23];
+        
+        function generarPronosticos() {
+            const contenedor = document.getElementById('resultados');
+            contenedor.innerHTML = "";
+            
+            for (let i = 1; i <= 5; i++) {
+                let combinacion = calcularCombinacion();
+                let div = document.createElement('div');
+                div.className = 'ticket';
+                div.innerHTML = Juego ${i}: ${combinacion.join(' - ')};
+                contenedor.appendChild(div);
+            }
+        }
+
+        function calcularCombinacion() {
+            let num;
+            while (true) {
+                let arr = [];
+                while(arr.length < 15) {
+                    let r = Math.floor(Math.random() * 25) + 1;
+                    let n = r < 10 ? "0"+r : ""+r;
+                    if(arr.indexOf(n) === -1) arr.push(n);
+                }
+                arr.sort((a, b) => a - b);
+                
+                // Aplicar Filtros del Algoritmo
+                let numArr = arr.map(Number);
+                let impares = numArr.filter(n => n % 2 !== 0).length;
+                let primosCount = numArr.filter(n => PRIMOS.includes(n)).length;
+                let suma = numArr.reduce((a, b) => a + b, 0);
+
+                // Solo aceptar si cumple los patrones ganadores
+                if ((impares === 8 || impares === 7) && 
+                    (primosCount >= 5 && primosCount <= 6) && 
+                    (suma >= 166 && suma <= 220)) {
+                    return arr;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
